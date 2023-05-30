@@ -12,26 +12,20 @@ export default function App({ Component, pageProps }) {
           console.log(`webfont script loaded correctly`)
         }
       />
-    <Script 
-        src="/js/extra.js" 
-        onLoad={() =>
-          console.log(`extra script loaded correctly`)
-        }
-    />
 
     <Component {...pageProps} />
-    <Script 
-        src='https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=63c8475ba85eb1570c45b959' 
-        onLoad={() =>
-          console.log(`jquery loaded correctly`)
-        }
-    />
     <Script 
         src="/js/webflow.js" 
         onLoad={() =>
           console.log(`webflow script loaded correctly`)
         }
+    />    <Script 
+        src='https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=63c8475ba85eb1570c45b959' 
+        onLoad={() =>
+          console.log(`jquery loaded correctly`)
+        }
     />
+
     </>
   )
 }
