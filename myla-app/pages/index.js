@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Head from "next/head";
 
 export default function Home() {
   return (
@@ -6,16 +6,32 @@ export default function Home() {
       <Head>
         <meta charset="utf-8" />
         <title>Myla</title>
-        <meta content="width=device-width, initial-scale=1" name="viewport" /> 
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="Webflow" name="generator" />
         <link href="https://fonts.googleapis.com" rel="preconnect" />
-        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous" />
-        <link href="/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <link
+          href="https://fonts.gstatic.com"
+          rel="preconnect"
+          crossorigin="anonymous"
+        />
+        <link
+          href="/images/favicon.ico"
+          rel="shortcut icon"
+          type="image/x-icon"
+        />
         <link href="/images/webclip.png" rel="apple-touch-icon" />
       </Head>
       <>
         <div className="section">
-          <div data-animation="default" data-collapse="medium" data-duration={400} data-easing="ease" data-easing2="ease" role="banner" className="navbar-3 w-nav">
+          <div
+            data-animation="default"
+            data-collapse="medium"
+            data-duration={400}
+            data-easing="ease"
+            data-easing2="ease"
+            role="banner"
+            className="navbar-3 w-nav"
+          >
             <div className="container-3 w-container">
               <a
                 href="my-intakes-dashboard"
@@ -395,7 +411,10 @@ export default function Home() {
                           id="Phone"
                           required=""
                         />
-                        <label htmlFor="Client-ref-no" className="field-label-8">
+                        <label
+                          htmlFor="Client-ref-no"
+                          className="field-label-8"
+                        >
                           Client Reference No. (optional)
                         </label>
                         <input
@@ -416,7 +435,7 @@ export default function Home() {
                           data-w-id="9a6a7881-cc2f-1b8a-d4f5-2d96089befc0"
                           style={{
                             backgroundColor: "rgba(16,75,145,0.23)",
-                            color: "rgba(51,51,51,0.78)"
+                            color: "rgba(51,51,51,0.78)",
                           }}
                           href="#"
                           className="button-6 w-button"
@@ -427,7 +446,7 @@ export default function Home() {
                           data-w-id="9a6a7881-cc2f-1b8a-d4f5-2d96089befc2"
                           style={{
                             backgroundColor: "rgba(16,75,145,0.23)",
-                            color: "rgba(51,51,51,0.78)"
+                            color: "rgba(51,51,51,0.78)",
                           }}
                           href="#"
                           className="button-5 w-button"
@@ -438,7 +457,7 @@ export default function Home() {
                           data-w-id="9a6a7881-cc2f-1b8a-d4f5-2d96089befc4"
                           style={{
                             backgroundColor: "rgba(16,75,145,0.23)",
-                            color: "rgba(51,51,51,0.78)"
+                            color: "rgba(51,51,51,0.78)",
                           }}
                           href="#"
                           className="button-4 w-button"
@@ -449,7 +468,7 @@ export default function Home() {
                           data-w-id="9a6a7881-cc2f-1b8a-d4f5-2d96089befc6"
                           style={{
                             backgroundColor: "rgba(16,75,145,0.23)",
-                            color: "rgba(51,51,51,0.78)"
+                            color: "rgba(51,51,51,0.78)",
                           }}
                           href="#"
                           className="button-7 w-button"
@@ -467,7 +486,9 @@ export default function Home() {
                         >
                           <div className="dropdown-toggle-5 w-dropdown-toggle">
                             <div className="w-icon-dropdown-toggle" />
-                            <div className="text-block-23">Select intake form</div>
+                            <div className="text-block-23">
+                              Select intake form
+                            </div>
                           </div>
                           <nav className="w-dropdown-list">
                             <a href="#" className="w-dropdown-link">
@@ -519,7 +540,7 @@ export default function Home() {
                                 data-w-id="9a6a7881-cc2f-1b8a-d4f5-2d96089befe5"
                                 style={{
                                   backgroundColor: "rgba(16,75,145,0.23)",
-                                  color: "rgba(51,51,51,0.78)"
+                                  color: "rgba(51,51,51,0.78)",
                                 }}
                                 href="#"
                                 className="button-5 w-button"
@@ -532,7 +553,7 @@ export default function Home() {
                                 data-w-id="9a6a7881-cc2f-1b8a-d4f5-2d96089befe8"
                                 style={{
                                   backgroundColor: "rgba(16,75,145,0.23)",
-                                  color: "rgba(51,51,51,0.78)"
+                                  color: "rgba(51,51,51,0.78)",
                                 }}
                                 href="#"
                                 className="button-5 w-button"
@@ -545,7 +566,7 @@ export default function Home() {
                                 data-w-id="9a6a7881-cc2f-1b8a-d4f5-2d96089befeb"
                                 style={{
                                   backgroundColor: "rgba(16,75,145,0.23)",
-                                  color: "rgba(51,51,51,0.78)"
+                                  color: "rgba(51,51,51,0.78)",
                                 }}
                                 href="#"
                                 className="button-5 w-button"
@@ -559,7 +580,9 @@ export default function Home() {
                         <label htmlFor="field-2" className="field-label-8">
                           Email Preview
                         </label>
-                        <div>Insert editable email preview in this div block</div>
+                        <div>
+                          Insert editable email preview in this div block
+                        </div>
                       </form>
                       <div className="w-form-done">
                         <div>Thank you! Your submission has been received!</div>
@@ -585,8 +608,8 @@ export default function Home() {
                   </div>
                   <nav className="dropdown-list-2 w-dropdown-list">
                     <a href="#" className="w-dropdown-link">
-                      This is where we would put the attachments the lead submits to
-                      the intake link.
+                      This is where we would put the attachments the lead
+                      submits to the intake link.
                     </a>
                   </nav>
                 </div>
@@ -638,7 +661,9 @@ export default function Home() {
                     <div>Thank you! Your submission has been received!</div>
                   </div>
                   <div className="w-form-fail">
-                    <div>Oops! Something went wrong while submitting the form.</div>
+                    <div>
+                      Oops! Something went wrong while submitting the form.
+                    </div>
                   </div>
                 </div>
               </div>
@@ -646,8 +671,6 @@ export default function Home() {
           </div>
         </div>
       </>
-      
-
     </>
-  )
+  );
 }
