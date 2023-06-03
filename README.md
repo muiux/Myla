@@ -1,8 +1,30 @@
+# Myla
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
-First, run the development server:
+Copy the `.env.example` file and rename it to `.env.local`:
+
+```bash
+cp .env.example .env.local
+```
+
+Then, fill in the environment variables with the output of this command:
+
+```bash
+npx supabase init
+```
+
+Then, start supabase locally:
+
+```bash
+npx supabase start
+```
+
+Go to http://localhost:64323 to access Supabase Studio and create a new user login with whatever you want.
+
+Now you can start the Next.js server:
 
 ```bash
 npm run dev
