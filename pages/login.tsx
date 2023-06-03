@@ -29,7 +29,6 @@ export default function Login({
   }
 
   return (
-    // Vertically and horizontally align Auth component and a title above it
     <div className="max-w-lg m-auto flex flex-col p-8">
       <h1 className="text-2xl font-bold text-center">Myla Login</h1>
       <div className="">
