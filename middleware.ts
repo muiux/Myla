@@ -9,6 +9,10 @@ const middlewares = {
   "/dash": dashMiddleware,
 } as const;
 
+export const config = {
+  matcher: ["/api/:path*", "/dash/:path*"],
+};
+
 export async function middleware(req: NextRequest) {
   for (const [prefix, middleware] of Object.entries(middlewares)) {
     if (req.nextUrl.pathname.startsWith(prefix)) {
@@ -56,7 +60,3 @@ async function apiMiddleware(req: NextRequest) {
   // Auth condition not met, return 401.
   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 }
-
-export const config = {
-  matcher: ["/api/:path*", "/dash/:path*"],
-};
