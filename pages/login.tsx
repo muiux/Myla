@@ -31,23 +31,21 @@ export default function Login({
   return (
     <div className="max-w-lg m-auto flex flex-col p-8">
       <h1 className="text-2xl font-bold text-center">Myla Login</h1>
-      <div className="">
-        <Auth
-          supabaseClient={supabase}
-          providers={[]}
-          appearance={{
-            theme: ThemeSupa,
-            variables: {
-              default: {
-                colors: {
-                  brand: "blue",
-                  brandAccent: "darkblue",
-                },
+      <Auth
+        supabaseClient={supabase}
+        providers={[]}
+        appearance={{
+          theme: ThemeSupa,
+          variables: {
+            default: {
+              colors: {
+                brand: "blue",
+                brandAccent: "darkblue",
               },
             },
-          }}
-        />
-      </div>
+          },
+        }}
+      />
     </div>
   );
 }
