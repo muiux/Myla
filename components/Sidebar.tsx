@@ -15,7 +15,7 @@ const Sidebar: FC<Record<string, never>> = function () {
   return (
     <div
       className={classNames(
-        "fixed top-[60px] h-[calc(100vh-60px)] z-10 lg:!block",
+        "fixed top-[60px] lg:top-0 h-[calc(100vh-60px)] z-10 lg:!block lg:sticky",
         {
           hidden: !isSidebarOpenOnSmallScreens,
         }
