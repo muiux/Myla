@@ -15,7 +15,7 @@ const Sidebar: FC<Record<string, never>> = function () {
   return (
     <div
       className={classNames(
-        "fixed top-[60px] lg:top-0 h-[calc(100vh-60px)] z-10 lg:!block lg:sticky",
+        "fixed top-[60px] lg:top-0 min-h-[calc(100vh-60px)] h-full z-10 lg:!block lg:sticky",
         {
           hidden: !isSidebarOpenOnSmallScreens,
         }
@@ -28,7 +28,7 @@ const Sidebar: FC<Record<string, never>> = function () {
               Search
             </FlowbiteSidebar.Item>
           </FlowbiteSidebar.ItemGroup>
-          <FlowbiteSidebar.ItemGroup className="h-full flex flex-col justify-center gap-4">
+          <FlowbiteSidebar.ItemGroup className="flex flex-col justify-center gap-4">
             <FlowbiteSidebar.Item href="#" icon={BsPinFill}>
               My Leads
             </FlowbiteSidebar.Item>

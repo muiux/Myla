@@ -8,7 +8,7 @@ const NavHeader: FC<Record<string, never>> = function () {
     useSidebarContext();
 
   return (
-    <header className="sticky top-0 z-20">
+    <header className="sticky top-0 z-20 shadow-sm">
       <Navbar fluid>
         {isPageWithSidebar && (
           <button
