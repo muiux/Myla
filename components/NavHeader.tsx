@@ -72,8 +72,8 @@ const NavHeader: FC<Record<string, never>> = function () {
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
-          <Navbar.Link href="/">Help</Navbar.Link>
-          <Navbar.Link href="/">Settings</Navbar.Link>
+          <Navbar.Link href="#">Help</Navbar.Link>
+          <Navbar.Link href="#">Settings</Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
     </header>
