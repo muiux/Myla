@@ -8,6 +8,11 @@ const nextConfig = {
         destination: "/dash",
         permanent: true,
       },
+      {
+        source: "/dash",
+        destination: "/dash/my-leads",
+        permanent: true,
+      },
     ];
   },
 };
