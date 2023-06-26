@@ -4,6 +4,7 @@ import {
   Button,
   DeepPartial,
   Dropdown,
+  FlowbiteButtonTheme,
   FlowbiteLabelTheme,
   Label,
   TextInput,
@@ -11,6 +12,7 @@ import {
 } from "flowbite-react";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import clxs from "classnames";
 
 const LabelTheme: DeepPartial<FlowbiteLabelTheme> = {
   root: { base: "text-2xl" },
@@ -126,7 +128,7 @@ export default function CreateClient() {
             placeholder="Client ref no."
             value={values.ref_no!}
             onChange={(e) => handleChangeValues("ref_no", e.target.value)}
-            type="number"
+            type="text"
           />
         </div>
 
@@ -141,6 +143,9 @@ export default function CreateClient() {
             <Button
               color="primary"
               pill
+              className={clxs("focus:!ring-4", {
+                "ring-4": values.area_of_law === "family_law",
+              })}
               onClick={() => handleChangeValues("area_of_law", "family_law")}
             >
               Family Law
@@ -148,6 +153,9 @@ export default function CreateClient() {
             <Button
               color="primary"
               pill
+              className={clxs("focus:!ring-4", {
+                "ring-4": values.area_of_law === "commercial_law",
+              })}
               onClick={() =>
                 handleChangeValues("area_of_law", "commercial_law")
               }
@@ -157,6 +165,9 @@ export default function CreateClient() {
             <Button
               color="primary"
               pill
+              className={clxs("focus:!ring-4", {
+                "ring-4": values.area_of_law === "wills_and_estates",
+              })}
               onClick={() =>
                 handleChangeValues("area_of_law", "wills_and_estates")
               }
@@ -166,6 +177,9 @@ export default function CreateClient() {
             <Button
               color="primary"
               pill
+              className={clxs("focus:!ring-4", {
+                "ring-4": values.area_of_law === "real_estate",
+              })}
               onClick={() => handleChangeValues("area_of_law", "real_estate")}
             >
               Real Estate
@@ -252,6 +266,9 @@ export default function CreateClient() {
             <Button
               color="primary"
               pill
+              className={clxs("focus:!ring-4", {
+                "ring-4": values.action === "send_email",
+              })}
               onClick={() => handleChangeValues("action", "send_email")}
             >
               Send Email
@@ -259,6 +276,9 @@ export default function CreateClient() {
             <Button
               color="primary"
               pill
+              className={clxs("focus:!ring-4", {
+                "ring-4": values.action === "send_docusign",
+              })}
               onClick={() => handleChangeValues("action", "send_docusign")}
             >
               Send Docusign
@@ -266,6 +286,9 @@ export default function CreateClient() {
             <Button
               color="primary"
               pill
+              className={clxs("focus:!ring-4", {
+                "ring-4": values.action === "send_notes",
+              })}
               onClick={() => handleChangeValues("action", "send_notes")}
             >
               Send Lawyer&apos;s Notes
