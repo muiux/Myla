@@ -6,7 +6,7 @@ export default function Template() {
       <div className="w-full h-[500px] rounded-xl bg-gray-100"></div>
 
       <div className="flex gap-4 justify-center">
-        <Button href="/assign-to-lawyer" color="primary" pill>
+        <Button href="/dash/assign-to-lawyer" color="primary" pill>
           Assign to Lawyer
         </Button>
         <Button color="primary" pill>
