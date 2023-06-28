@@ -14,6 +14,7 @@ export default function Dashboard() {
           }
           color="primary"
           pill
+          href="/create-new-client"
         >
           + Create Client
         </Button>
