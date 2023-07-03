@@ -43,6 +43,9 @@ export default function CreateClient() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
+    if (!insertLead) {
+      return;
+    }
     const { error } = await insertLead(values);
     if (!error) {
       router.push("/dash/my-leads");

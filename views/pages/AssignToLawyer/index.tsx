@@ -31,7 +31,7 @@ const AssignToLawyer: React.FC<Props> = ({ leadId }) => {
   const [secondaryLawyer, setSecondaryLawyer] = useState("");
 
   useEffect(() => {
-    if (leadId) {
+    if (leadId && getLeadById) {
       getLeadById(leadId)
         .then((response) => {
           if (response.error) {
@@ -49,6 +49,9 @@ const AssignToLawyer: React.FC<Props> = ({ leadId }) => {
   }, [getLeadById, leadId]);
 
   useEffect(() => {
+    if (!getLawyers) {
+      return;
+    }
     getLawyers().then((response) => {
       if (!response.error) {
         setLawyers(
@@ -64,6 +67,9 @@ const AssignToLawyer: React.FC<Props> = ({ leadId }) => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
+    if (!insertClient) {
+      return;
+    }
     const { error } = await insertClient({
       lawyer_id: primaryLawyer,
       lead_id: leadId,

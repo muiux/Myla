@@ -11,7 +11,7 @@ const IndividualLead: React.FC<IndividualLeadProp> = ({ leadId }) => {
   const [lead, setLead] = useState<any>(undefined);
 
   useEffect(() => {
-    if (leadId) {
+    if (leadId && getLeadById) {
       getLeadById(leadId)
         .then((response) => {
           if (response.error) {
