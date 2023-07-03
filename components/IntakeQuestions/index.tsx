@@ -2,7 +2,11 @@ import { Accordion } from "flowbite-react";
 import ClientInformation from "./ClientInformation";
 import ClientAttachments from "./ClientAttachments";
 
-export default function IntakeQuestions() {
+interface Props {
+  lead: any;
+}
+
+const IntakeQuestions: React.FC<Props> = ({ lead }) => {
   return (
     <>
       <div className="h-[500px]">Intake Questions here</div>
@@ -11,7 +15,7 @@ export default function IntakeQuestions() {
         <Accordion.Panel>
           <Accordion.Title>Client Information</Accordion.Title>
           <Accordion.Content>
-            <ClientInformation />
+            <ClientInformation lead={lead} />
           </Accordion.Content>
         </Accordion.Panel>
         <Accordion.Panel>
@@ -23,4 +27,6 @@ export default function IntakeQuestions() {
       </Accordion>
     </>
   );
-}
+};
+
+export default IntakeQuestions;

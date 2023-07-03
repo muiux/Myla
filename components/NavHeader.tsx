@@ -2,10 +2,21 @@ import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import Image from "next/image";
 import { FC } from "react";
 import { useSidebarContext } from "../contexts/SidebarContext";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useRouter } from "next/router";
 
 const NavHeader: FC<Record<string, never>> = function () {
   const { isOpenOnSmallScreens, isPageWithSidebar, setOpenOnSmallScreens } =
     useSidebarContext();
+  const supabase = useSupabaseClient();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (!error) {
+      router.push("/");
+    }
+  };
 
   return (
     <header className="sticky top-0 z-20 shadow-sm">
@@ -66,7 +77,7 @@ const NavHeader: FC<Record<string, never>> = function () {
             </Dropdown.Header>
             <Dropdown.Item>Profile</Dropdown.Item>
             <Dropdown.Item>Switch Account</Dropdown.Item>
-            <Dropdown.Item>Log out</Dropdown.Item>
+            <Dropdown.Item onClick={handleLogout}>Log out</Dropdown.Item>
             <Dropdown.Item>Manage Linked Accounts</Dropdown.Item>
           </Dropdown>
           <Navbar.Toggle />

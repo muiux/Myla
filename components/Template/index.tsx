@@ -1,14 +1,24 @@
 import { Button, Label, Textarea } from "flowbite-react";
 
-export default function Template() {
+interface Props {
+  leadId: string;
+  noAssign?: boolean;
+}
+const Template: React.FC<Props> = ({ leadId, noAssign }) => {
   return (
     <>
       <div className="w-full h-[500px] rounded-xl bg-gray-100"></div>
 
       <div className="flex gap-4 justify-center">
-        <Button href="/dash/assign-to-lawyer" color="primary" pill>
-          Assign to Lawyer
-        </Button>
+        {!noAssign && (
+          <Button
+            href={`/dash/assign-to-lawyer/${leadId}`}
+            color="primary"
+            pill
+          >
+            Assign to Lawyer
+          </Button>
+        )}
         <Button color="primary" pill>
           Upload Docx
         </Button>
@@ -22,4 +32,6 @@ export default function Template() {
       </div>
     </>
   );
-}
+};
+
+export default Template;

@@ -1,11 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   async redirects() {
     return [
       {
         source: "/",
         destination: "/dash",
+        permanent: true,
+      },
+      {
+        source: "/dash",
+        destination: "/dash/my-leads",
         permanent: true,
       },
     ];

@@ -29,13 +29,16 @@ const Sidebar: FC<Record<string, never>> = function () {
             </FlowbiteSidebar.Item>
           </FlowbiteSidebar.ItemGroup>
           <FlowbiteSidebar.ItemGroup className="flex flex-col justify-center gap-4">
-            <FlowbiteSidebar.Item href="#" icon={BsPinFill}>
+            <FlowbiteSidebar.Item href="/dash/my-leads" icon={BsPinFill}>
               My Leads
             </FlowbiteSidebar.Item>
-            <FlowbiteSidebar.Item href="#" icon={FaUser}>
+            <FlowbiteSidebar.Item href="/dash/my-clients" icon={FaUser}>
               My Clients
             </FlowbiteSidebar.Item>
-            <FlowbiteSidebar.Item href="#" icon={RiPencilFill}>
+            <FlowbiteSidebar.Item
+              href="/dash/my-intake-forms"
+              icon={RiPencilFill}
+            >
               My Intake Forms
             </FlowbiteSidebar.Item>
           </FlowbiteSidebar.ItemGroup>
