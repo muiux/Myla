@@ -30,8 +30,19 @@ export function useSupabaseFunctions() {
     [supabase]
   );
 
+  const getClients = useCallback(
+    () =>
+      supabase
+        .from("client")
+        .select(
+          "id, lawyer:lawyer(firstname, lastname), lead:lead(firstname, lastname, ref_no, area_of_law, deadline, notes)"
+        ),
+    [supabase]
+  );
+
   return {
     insertLead,
     getLeads,
+    getClients,
   };
 }
