@@ -3,7 +3,7 @@ export type Json =
   | number
   | boolean
   | null
-  | { [key: string]: Json }
+  | { [key: string]: Json | undefined }
   | Json[]
 
 export interface Database {
@@ -12,19 +12,19 @@ export interface Database {
       client: {
         Row: {
           created_at: string | null
-          id: number
+          id: string
           lawyer_id: string | null
           lead_id: string | null
         }
         Insert: {
           created_at?: string | null
-          id?: number
+          id?: string
           lawyer_id?: string | null
           lead_id?: string | null
         }
         Update: {
           created_at?: string | null
-          id?: number
+          id?: string
           lawyer_id?: string | null
           lead_id?: string | null
         }

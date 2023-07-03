@@ -1,3 +1,5 @@
+import clxs from "classnames";
+import { useSupabaseFunctions } from "@/service/supabase";
 import {
   Button,
   DeepPartial,
@@ -7,25 +9,102 @@ import {
   TextInput,
   Textarea,
 } from "flowbite-react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 const LabelTheme: DeepPartial<FlowbiteLabelTheme> = {
   root: { base: "text-2xl" },
 };
 
-export default function AssignToLawyer() {
+interface Props {
+  leadId: string;
+}
+
+const AssignToLawyer: React.FC<Props> = ({ leadId }) => {
+  const router = useRouter();
+  const { getLawyers, getLeadById, insertClient } = useSupabaseFunctions();
+  const [lawyers, setLawyers] = useState<{ id: string; lawyerName: string }[]>(
+    []
+  );
+  const [lead, setLead] = useState<any>(undefined);
+  const [primaryLawyer, setPrimaryLawyer] = useState("");
+  const [secondaryLawyer, setSecondaryLawyer] = useState("");
+
+  useEffect(() => {
+    if (leadId) {
+      getLeadById(leadId)
+        .then((response) => {
+          if (response.error) {
+            throw "Error";
+          }
+          return response.data;
+        })
+        .then((lead: any) => {
+          setLead(lead);
+        });
+    }
+    return () => {
+      setLead(undefined);
+    };
+  }, [getLeadById, leadId]);
+
+  useEffect(() => {
+    getLawyers().then((response) => {
+      if (!response.error) {
+        setLawyers(
+          response.data.map((item) => ({
+            id: item.id,
+            lawyerName: `${item.firstname} ${item.lastname}`,
+          }))
+        );
+      }
+    });
+  }, [getLawyers]);
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const { error } = await insertClient({
+      lawyer_id: primaryLawyer,
+      lead_id: leadId,
+    });
+    if (!error) {
+      router.push("/dash/my-clients");
+    } else {
+      console.error("insertClient", error);
+    }
+  };
+
+  if (!lead) {
+    return null;
+  }
+
   return (
     <div className="flex justify-center mt-2 mb-10">
-      <form className="max-w-5xl w-full flex flex-col gap-8">
+      <form
+        className="max-w-5xl w-full flex flex-col gap-8"
+        onSubmit={handleSubmit}
+      >
         {/* Primary Lawyer */}
         <div className="flex flex-col gap-2">
           <div className="text-left">
             <Label htmlFor="" value="Primary Lawyer" theme={LabelTheme} />
           </div>
           <div className="flex">
-            <Dropdown inline label="Dropdown">
-              <Dropdown.Item>Link 1</Dropdown.Item>
-              <Dropdown.Item>Link 2</Dropdown.Item>
-              <Dropdown.Item>Link 3</Dropdown.Item>
+            <Dropdown
+              inline
+              label={
+                lawyers.find(({ id }) => id === primaryLawyer)?.lawyerName ||
+                "Dropdown"
+              }
+            >
+              {lawyers
+                .filter(({ id }) => id !== secondaryLawyer)
+                .map(({ id, lawyerName }) => (
+                  <Dropdown.Item key={id} onClick={() => setPrimaryLawyer(id)}>
+                    {lawyerName}
+                  </Dropdown.Item>
+                ))}
             </Dropdown>
           </div>
         </div>
@@ -40,10 +119,23 @@ export default function AssignToLawyer() {
             />
           </div>
           <div className="flex">
-            <Dropdown inline label="Dropdown">
-              <Dropdown.Item>Link 1</Dropdown.Item>
-              <Dropdown.Item>Link 2</Dropdown.Item>
-              <Dropdown.Item>Link 3</Dropdown.Item>
+            <Dropdown
+              inline
+              label={
+                lawyers.find(({ id }) => id === secondaryLawyer)?.lawyerName ||
+                "Dropdown"
+              }
+            >
+              {lawyers
+                .filter(({ id }) => id !== primaryLawyer)
+                .map(({ id, lawyerName }) => (
+                  <Dropdown.Item
+                    key={id}
+                    onClick={() => setSecondaryLawyer(id)}
+                  >
+                    {lawyerName}
+                  </Dropdown.Item>
+                ))}
             </Dropdown>
           </div>
         </div>
@@ -68,7 +160,6 @@ export default function AssignToLawyer() {
             id="clientrefno"
             placeholder="Client ref no."
             type="text"
-            required
           />
         </div>
 
@@ -92,12 +183,16 @@ export default function AssignToLawyer() {
             placeholder="First name"
             type="text"
             required
+            value={lead.firstname}
+            readOnly
           />
           <TextInput
             id="lastname"
             placeholder="Last name"
             type="text"
             required
+            value={lead.lastname}
+            readOnly
           />
         </div>
 
@@ -106,7 +201,14 @@ export default function AssignToLawyer() {
           <div className="text-left">
             <Label htmlFor="email" value="Client Email" theme={LabelTheme} />
           </div>
-          <TextInput id="email" placeholder="Email" type="email" required />
+          <TextInput
+            id="email"
+            placeholder="Email"
+            type="email"
+            required
+            value={lead.email}
+            readOnly
+          />
         </div>
 
         {/* Client Phone */}
@@ -114,7 +216,14 @@ export default function AssignToLawyer() {
           <div className="text-left">
             <Label htmlFor="phone" value="Client Phone" theme={LabelTheme} />
           </div>
-          <TextInput id="phone" placeholder="Phone" type="tel" required />
+          <TextInput
+            id="phone"
+            placeholder="Phone"
+            type="tel"
+            required
+            value={lead.phone}
+            readOnly
+          />
         </div>
 
         {/* + Add Client to File */}
@@ -133,7 +242,13 @@ export default function AssignToLawyer() {
               theme={LabelTheme}
             />
           </div>
-          <TextInput id="refno" placeholder="Client ref no." type="number" />
+          <TextInput
+            id="refno"
+            placeholder="Client ref no."
+            type="number"
+            value={lead.ref_no}
+            readOnly
+          />
         </div>
 
         <hr className="my-4" />
@@ -144,16 +259,40 @@ export default function AssignToLawyer() {
             <Label htmlFor="" value="Area of Law" theme={LabelTheme} />
           </div>
           <div className="flex justify-center gap-2">
-            <Button color="primary" pill>
+            <Button
+              color="primary"
+              pill
+              className={clxs("focus:!ring-4", {
+                "ring-4": lead.area_of_law === "family_law",
+              })}
+            >
               Family Law
             </Button>
-            <Button color="primary" pill>
+            <Button
+              color="primary"
+              pill
+              className={clxs("focus:!ring-4", {
+                "ring-4": lead.area_of_law === "commercial_law",
+              })}
+            >
               Commercial Law
             </Button>
-            <Button color="primary" pill>
+            <Button
+              color="primary"
+              pill
+              className={clxs("focus:!ring-4", {
+                "ring-4": lead.area_of_law === "wills_and_estates",
+              })}
+            >
               Wills and Estates
             </Button>
-            <Button color="primary" pill>
+            <Button
+              color="primary"
+              pill
+              className={clxs("focus:!ring-4", {
+                "ring-4": lead.area_of_law === "real_estate",
+              })}
+            >
               Real Estate
             </Button>
           </div>
@@ -167,7 +306,7 @@ export default function AssignToLawyer() {
             <Label htmlFor="" value="Intake Form" theme={LabelTheme} />
           </div>
           <div className="flex justify-center">
-            <Dropdown inline label="Select intake form">
+            <Dropdown inline label={lead.intake_form || "Select intake form"}>
               <Dropdown.Item>Link 1</Dropdown.Item>
               <Dropdown.Item>Link 2</Dropdown.Item>
               <Dropdown.Item>Link 3</Dropdown.Item>
@@ -187,6 +326,8 @@ export default function AssignToLawyer() {
             placeholder="dd/mm/yyyy or estimate"
             type="text"
             required
+            value={lead.deadline}
+            readOnly
           />
         </div>
 
@@ -206,6 +347,8 @@ export default function AssignToLawyer() {
             placeholder="Leave a notes..."
             required
             rows={4}
+            value={lead.notes}
+            readOnly
           />
         </div>
 
@@ -237,7 +380,6 @@ export default function AssignToLawyer() {
           <Textarea
             id="plusnotesforlawyer"
             placeholder="Leave a notes..."
-            required
             rows={4}
           />
         </div>
@@ -251,4 +393,6 @@ export default function AssignToLawyer() {
       </form>
     </div>
   );
-}
+};
+
+export default AssignToLawyer;

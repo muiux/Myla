@@ -20,7 +20,7 @@ const LabelTheme: DeepPartial<FlowbiteLabelTheme> = {
 
 export default function CreateClient() {
   const router = useRouter();
-  const supabaseFunctions = useSupabaseFunctions();
+  const { insertLead } = useSupabaseFunctions();
   const [values, setValues] = useState<
     Database["public"]["Tables"]["lead"]["Insert"]
   >({
@@ -43,7 +43,7 @@ export default function CreateClient() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const { error } = await supabaseFunctions.insertLead(values);
+    const { error } = await insertLead(values);
     if (!error) {
       router.push("/dash/my-leads");
     } else {

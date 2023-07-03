@@ -26,23 +26,59 @@ export function useSupabaseFunctions() {
   );
 
   const getLeads = useCallback(
-    () => supabase.from("lead").select("*"),
-    [supabase]
+    () => supabase.from("lead").select("*").eq("assistant_id", user?.id),
+    [supabase, user?.id]
+  );
+
+  const getLeadById = useCallback(
+    (id: string) =>
+      supabase
+        .from("lead")
+        .select("*")
+        .eq("id", id)
+        .eq("assistant_id", user?.id)
+        .single(),
+    [supabase, user?.id]
+  );
+
+  const insertClient = useCallback(
+    (values: Database["public"]["Tables"]["client"]["Insert"]) =>
+      supabase.from("client").insert({ ...values, assistant_id: user?.id }),
+    [supabase, user?.id]
   );
 
   const getClients = useCallback(
     () =>
       supabase
         .from("client")
-        .select(
-          "id, lawyer:lawyer(firstname, lastname), lead:lead(firstname, lastname, ref_no, area_of_law, deadline, notes)"
-        ),
+        .select("id, lawyer:lawyer(*), lead:lead(*)")
+        .eq("assistant_id", user?.id),
+    [supabase, user?.id]
+  );
+
+  const getClientById = useCallback(
+    (id: string) =>
+      supabase
+        .from("client")
+        .select("id, lawyer:lawyer(*), lead:lead(*)")
+        .eq("id", id)
+        .eq("assistant_id", user?.id)
+        .single(),
+    [supabase, user?.id]
+  );
+
+  const getLawyers = useCallback(
+    () => supabase.from("lawyer").select("id, firstname, lastname"),
     [supabase]
   );
 
   return {
     insertLead,
     getLeads,
+    getLeadById,
+    insertClient,
     getClients,
+    getClientById,
+    getLawyers,
   };
 }

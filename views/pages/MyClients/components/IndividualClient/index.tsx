@@ -1,25 +1,36 @@
 import { Button } from "flowbite-react";
 import { RiPencilFill } from "react-icons/ri";
-import IntakeQuestions from "./components/IntakeQuestions";
-import Template from "./components/Template";
+import IntakeQuestions from "@/components/IntakeQuestions";
+import Template from "@/components/Template";
 import { IndividualClientProp } from "@/pages/dash/my-clients/[clientId]";
+import { useSupabaseFunctions } from "@/service/supabase";
+import { useEffect, useState } from "react";
 
 const IndividualClient: React.FC<IndividualClientProp> = ({ clientId }) => {
-  console.log({ clientId });
+  const { getClientById } = useSupabaseFunctions();
+  const [lead, setLead] = useState<any>(undefined);
+
+  useEffect(() => {
+    if (clientId) {
+      getClientById(clientId).then((response) => {
+        if (!response.error) {
+          const { lead } = response.data as any;
+          setLead(lead);
+        }
+      });
+    }
+  }, [getClientById, clientId]);
+
+  if (!lead) {
+    return null;
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <div className="w-full relative">
-        <h4 className="text-3xl text-blue-800 text-center">name of lead</h4>
-        <Button
-          className={
-            "absolute top-1/2 right-0 -translate-y-1/2 bg-blue-800 hover:bg-blue-900"
-          }
-          color="primary"
-          pill
-          href="/dash/create-new-client"
-        >
-          + Create Client
-        </Button>
+        <h4 className="text-3xl text-blue-800 text-center">
+          {lead.firstname} {lead.lastname} - {lead.ref_no}
+        </h4>
       </div>
 
       <hr />
@@ -38,7 +49,7 @@ const IndividualClient: React.FC<IndividualClientProp> = ({ clientId }) => {
             <RiPencilFill className="text-blue-800" size="2rem" />
           </div>
 
-          <IntakeQuestions />
+          <IntakeQuestions lead={lead} />
         </div>
 
         {/* Template */}
@@ -48,7 +59,7 @@ const IndividualClient: React.FC<IndividualClientProp> = ({ clientId }) => {
             <RiPencilFill className="text-blue-800" size="2rem" />
           </div>
 
-          <Template />
+          <Template leadId={lead.id} noAssign />
         </div>
       </div>
     </div>

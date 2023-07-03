@@ -1,15 +1,43 @@
+import { useEffect, useState } from "react";
 import { Button } from "flowbite-react";
 import { RiPencilFill } from "react-icons/ri";
-import IntakeQuestions from "./components/IntakeQuestions";
-import Template from "./components/Template";
+import IntakeQuestions from "@/components/IntakeQuestions";
+import Template from "@/components/Template";
 import { IndividualLeadProp } from "@/pages/dash/my-leads/[leadId]";
+import { useSupabaseFunctions } from "@/service/supabase";
 
 const IndividualLead: React.FC<IndividualLeadProp> = ({ leadId }) => {
-  console.log({ leadId });
+  const { getLeadById } = useSupabaseFunctions();
+  const [lead, setLead] = useState<any>(undefined);
+
+  useEffect(() => {
+    if (leadId) {
+      getLeadById(leadId)
+        .then((response) => {
+          if (response.error) {
+            throw "Error";
+          }
+          return response.data;
+        })
+        .then((lead: any) => {
+          setLead(lead);
+        });
+    }
+    return () => {
+      setLead(undefined);
+    };
+  }, [getLeadById, leadId]);
+
+  if (!lead) {
+    return null;
+  }
+
   return (
     <div className="flex flex-col gap-4">
-      <div className="w-full relative">
-        <h4 className="text-3xl text-blue-800 text-center">name of lead</h4>
+      <div className="w-full h-10 relative">
+        <h4 className="text-3xl text-blue-800 text-center">
+          {lead.firstname || ""} {lead.lastname || ""}
+        </h4>
         <Button
           className={
             "absolute top-1/2 right-0 -translate-y-1/2 bg-blue-800 hover:bg-blue-900"
@@ -38,7 +66,7 @@ const IndividualLead: React.FC<IndividualLeadProp> = ({ leadId }) => {
             <RiPencilFill className="text-blue-800" size="2rem" />
           </div>
 
-          <IntakeQuestions />
+          <IntakeQuestions lead={lead} />
         </div>
 
         {/* Template */}
@@ -48,7 +76,7 @@ const IndividualLead: React.FC<IndividualLeadProp> = ({ leadId }) => {
             <RiPencilFill className="text-blue-800" size="2rem" />
           </div>
 
-          <Template />
+          <Template leadId={lead.id} />
         </div>
       </div>
     </div>
