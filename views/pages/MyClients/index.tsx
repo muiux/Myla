@@ -17,6 +17,9 @@ export default function MyClients() {
   const [data, setData] = useState<TableData[]>([]);
 
   useEffect(() => {
+    if (!getClients) {
+      return;
+    }
     getClients()
       .then((response: any) => {
         if (response.error) {

@@ -72,6 +72,10 @@ export function useSupabaseFunctions() {
     [supabase]
   );
 
+  if (!user) {
+    return {};
+  }
+
   return {
     insertLead,
     getLeads,

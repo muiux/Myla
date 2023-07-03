@@ -11,7 +11,7 @@ const IndividualClient: React.FC<IndividualClientProp> = ({ clientId }) => {
   const [lead, setLead] = useState<any>(undefined);
 
   useEffect(() => {
-    if (clientId) {
+    if (clientId && getClientById) {
       getClientById(clientId).then((response) => {
         if (!response.error) {
           const { lead } = response.data as any;

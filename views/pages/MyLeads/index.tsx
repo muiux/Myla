@@ -20,6 +20,9 @@ export default function MyLeads() {
   const [data, setData] = useState<TableData[]>([]);
 
   useEffect(() => {
+    if (!getLeads) {
+      return;
+    }
     getLeads()
       .then((response: any) => {
         if (response.error) {
